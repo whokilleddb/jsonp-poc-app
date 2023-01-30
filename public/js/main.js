@@ -28,9 +28,9 @@ function submit(){
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 var j_resp = JSON.stringify(data)
-                console.log(j_resp)
-                if (data.success) {
+                if (data.status === 'ok') {
                     // Redirect the user to the dashboard page
                     window.location.href = '/console';
                 } else {

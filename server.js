@@ -59,7 +59,7 @@ app.post('/login', function(req, res) {
         if (result) {
             req.session.user = user;
             console.log("Logged In As - %s:%s", username, password)
-            return res.redirect('/console');
+            return res.send({status: "ok"});
         }
         console.log("Failed Login attempt - %s:%s", username, password)
         return res.status(401).send({ message: 'Invalid Credentials' });
@@ -68,7 +68,7 @@ app.post('/login', function(req, res) {
 
 // Dashboard page
 app.get(['/console', '/console.html'], isAuthenticated, (req, res) => {
-    res.send({status:"ok"});
+    res.sendFile(path.join(__dirname, '/routes/console.html'));
 });  
 
 
