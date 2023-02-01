@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 var path = require('path')
 const bcrypt = require('bcrypt');
 var session = require('express-session');
+var request = require('request');
 
 // Create express app
 var app  =  express()
@@ -30,11 +31,15 @@ const PORT = 8000;
 // User credential
 const users = [{
     id: 1,
-    username: 'farid',
+    username: 'db',
     password: '$2b$10$lq5kBLti.5p/Ziq6GmXVdeVr2mMJvyPvFk.zpiy.2F1ozVqTw18cu', // passw0rd
-    team : 'rocket',
-    acc: 'XQC-MK-LUD'
+    phone : '+91-0000000000',
+    role: 'admin',
+    email: "test@example.com",
+    balance: "$99,999,999",
+    address: "22B Baker Street, London"
 }];
+
 
 // Authenticate
 function isAuthenticated(req, res, next) {
@@ -72,28 +77,34 @@ app.post('/login', function(req, res) {
 
 // show user info
 app.get('/whoami', isAuthenticated, (re1, res) => {
-    user_info = {
-        id: users[0].id,
-        name: users[0].username,
-        team: users[0].team,
-        acc: users[0].acc,
-    };
     console.log("[i] Served User Info")
-    return res.send(JSON.stringify(user_info));
+    return res.jsonp(users[0]);
 });
+
 
 // Console page
 app.get(['/console', '/console.html'], isAuthenticated, (req, res) => {
     console.log("[i] Served Console")
     res.sendFile(path.join(__dirname, '/routes/console.html'));
-});  
+});
 
 
+// Favicon 
+// Console page
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/media/favicon.ico'));
+});
+
+app.get('/echo', (req, res) => {
+    res.jsonp(req.block);
+  })
+  
 // Index page
 app.get(['/', '/index', '/index.html'], function(req, res) {
     console.log("[i] Served index page")
     res.sendFile(path.join(__dirname, '/routes/index.html'));
-});  
+}) 
+
 
 // 404 error
 app.get('*', function(req, res){
@@ -101,6 +112,8 @@ app.get('*', function(req, res){
     res.status(404).sendFile(path.join(__dirname, '/routes/404.html'));
 });
 
+
+// Host Server
 app.listen(PORT, HOST, () => {
     console.log('[i] Server running at http://%s:%d/', HOST, PORT);
   })

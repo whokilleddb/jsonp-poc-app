@@ -1,38 +1,96 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8'>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>API Console</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-    <body>
-        <style>
-            html {
-                height: 100%;
-            }
+<html lang="en">
+<head>
+    <!--TITLE-->
+    <title>Profile Page</title>
 
-            body {
-                margin: 0;
-                padding: 0;
-                font-family: sans-serif;
-                background: linear-gradient(#141e30, #243b55);
-            }
+    <!--ICON-->
+    <link rel="shortcut icon" type="image/png" href="media/favicon.ico">
 
-            button{
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);   
-            }
-        </style>
-        <button type="button" class="btn btn-primary" onclick="sayhi()">Click Me</button>
-    </body>
+    <!--META TAGS-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    
+    <!--EXTERNAL CSS-->
+    <link rel='stylesheet' type='text/css' media='screen' href='css/console.css'>
+
+    <!--PLUGIN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Oswald:wght@300;400&family=Ubuntu:wght@700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet"> 
+</head>
+
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <td>
+                    <section>
+                        <img src="https://avatars.githubusercontent.com/u/56482137" id="blah" alt="Avatar">
+                    </section>
+                    <h1><div id="name"></div></h1>
+                    <h3><div id="role"></div></h3>
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            <b>Full name</b> 
+                            <span type="text" name="fname" id="fname" maxlength="100"required></span>
+                        </li>
+                        <li>
+                            <b>Email</b> 
+                            <span type="email" name="email" id="email" maxlength="150" required></span>
+                        </li>
+                        <li>
+                            <b>Contact number</b>
+                            <span type="tel" name="mobile" id="mobile" maxlength="10" required></span>
+                        </li>
+                        <li>
+                            <b>Account Balance</b>
+                            <span type="text" name="acc" id="acc" maxlength="250" required></span>
+                        </li>
+                        <li>
+                            <b>Address</b>
+                            <span type="text" name="address" id="address" maxlength="250" required></span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
     <script>
-        function sayhi(){
-            alert('Hi')
-        }
+        window.addEventListener("load", (event) => {
+            console.log("page is fully loaded");
+            fetch('/whoami')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    var name = data.username;
+                    var email = data.email;
+                    var phone = data.phone;
+                    var addr = data.address;
+                    var role = data.role;
+                    var bal = data.balance;
+                    
+                    document.getElementById("name").innerHTML = name.toUpperCase();
+                    document.getElementById("fname").innerHTML = name;
+                    document.getElementById("role").innerHTML = role;
+                    document.getElementById("email").innerHTML = email;
+                    document.getElementById("mobile").innerHTML = phone;
+                    document.getElementById("acc").innerHTML = bal;
+                    document.getElementById("address").innerHTML = addr;
+                });
+        });
     </script>
-
+</body>
 </html>
