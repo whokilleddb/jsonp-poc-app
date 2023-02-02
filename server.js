@@ -31,13 +31,13 @@ const PORT = 8000;
 // User credential
 const users = [{
     id: 1,
-    username: 'db',
+    username: 'johndoe',
     password: '$2b$10$lq5kBLti.5p/Ziq6GmXVdeVr2mMJvyPvFk.zpiy.2F1ozVqTw18cu', // passw0rd
     phone : '+91-0000000000',
     role: 'admin',
     email: "test@example.com",
     balance: "$99,999,999",
-    address: "22B Baker Street, London"
+    address: "221B Baker Street, London"
 }];
 
 
